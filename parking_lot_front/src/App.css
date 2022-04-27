@@ -1,5 +1,6 @@
 table,  th, td {
     border: 1px solid gray;
+
 }
 
 th, td {
@@ -10,4 +11,15 @@ th, td {
     vertical-align: center;
 }
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 tr:hover {background-color: coral;}
+
+/* 
+.App{
+    background-image: url("./components/Image.jpg");
+    background-color: coral;
+} */

@@ -12,6 +12,7 @@ const BookedSlots = () => {
     const currentUser = AuthService.getCurrentUser();
     console.log(currentUser)
     console.log(currentUser.roles[0]);
+
     const [bookedlots, setBookedlots] = useState([]);
     useEffect(() => {
         console.log("hii");
@@ -25,39 +26,43 @@ const BookedSlots = () => {
     })
     return (
         <Grid container alignItems="center" direction="column" >
-
-            <Typography variant="h2">
-                Booked Slot Details Can be Viewed Here 
-            </Typography>
+            
             <div>
-                <Table striped bordered hover size="sm">
-                    <thead>
-                        <tr>
-                            <th>Name</th> <th>geocode</th> <th>starttime</th> <th>Endttime</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {bookedlots.map((i) => {
-                            const cust_s = new Date(i.starttime*1000);
-                            const cust_e = new Date(i.endtime*1000);
-                            const st_time = cust_s.toLocaleDateString() + ' ' + cust_s.toLocaleTimeString();
-                            const end_time = cust_e.toLocaleDateString() + ' ' + cust_e.toLocaleTimeString();
-                            return (
+                {bookedlots.length ? (
+                <><Typography variant="h2">
+                        Booked Slot Details Can be Viewed Here
+                    </Typography>
+                    <table class="center" striped bordered hover>
+                            <thead>
                                 <tr>
-                                    <td>{i.username}</td>
-                                    <td>{i.geocode}</td>
-                                    <td>{st_time}</td>
-                                    <td>{end_time}</td>
+                                    <th>Name</th> <th>Geocode</th> <th>Vehicle No</th><th>Start time</th> <th>End time</th>
                                 </tr>
-                            )
+                            </thead>
+                            <tbody>
+                                {bookedlots.map((i) => {
+                                    const cust_s = new Date(i.starttime * 1000);
+                                    const cust_e = new Date(i.endtime * 1000);
+                                    const st_time = cust_s.toLocaleDateString() + ' ' + cust_s.toLocaleTimeString();
+                                    const end_time = cust_e.toLocaleDateString() + ' ' + cust_e.toLocaleTimeString();
+                                    return (
+                                        <tr>
+                                            <td>{i.username}</td>
+                                            <td>{i.geocode}</td>
+                                            <td>{i.vehicleno}</td>
+                                            <td>{st_time}</td>
+                                            <td>{end_time}</td>
+                                        </tr>
+                                    );
 
-                        })
+                                })}
 
 
+                            </tbody>
+                        </table></> ) : <Typography variant="h2">
+                No Booked Slots for you. Please start booking. 
+            </Typography>
 
-                        }
-                    </tbody>
-                </Table>
+                }
             </div>
         </Grid>
 

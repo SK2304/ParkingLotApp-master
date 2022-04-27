@@ -63,21 +63,21 @@ public class lotController {
     
     @PutMapping("/lots/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ParkingLot> updateParkingLot(@PathVariable(value = "id") Long ParkingLotId,
+    public ResponseEntity<ParkingLot> updateParkingLot(@PathVariable(value = "id") String ParkingLotId,
          @Valid @RequestBody ParkingLot parkingLotDetails) throws ResourceNotFoundException {
         ParkingLot parkingLot = parkingLotRepository.findById(ParkingLotId)
         .orElseThrow(() -> new ResourceNotFoundException("ParkingLot not found for this id :: " + ParkingLotId));
 
-        parkingLot.setAddress(parkingLotDetails.getAddress());
+        // parkingLot.setAddress(parkingLotDetails.getAddress());
         parkingLot.setSlots(parkingLotDetails.getSlots());
-        parkingLot.setGeocode(parkingLotDetails.getGeocode());
+        // parkingLot.setGeocode(parkingLotDetails.getGeocode());
         final ParkingLot updatedParkingLot = parkingLotRepository.save(parkingLot);
         return ResponseEntity.ok(updatedParkingLot);
     }
 
     @DeleteMapping("/lots/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Map<String, Boolean> deleteParkingLot(@PathVariable(value = "id") Long ParkingLotId)
+    public Map<String, Boolean> deleteParkingLot(@PathVariable(value = "id") String ParkingLotId)
          throws ResourceNotFoundException {
         ParkingLot parkingLot = parkingLotRepository.findById(ParkingLotId)
        .orElseThrow(() -> new ResourceNotFoundException("ParkingLot not found for this id :: " + ParkingLotId));

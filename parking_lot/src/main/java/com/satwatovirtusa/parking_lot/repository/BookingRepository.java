@@ -14,5 +14,6 @@ public interface BookingRepository extends MongoRepository<Booking, Long>,Bookin
     Boolean existsByUsername(String username);
     List<Booking> findByUsername(String username,long st,long en);
     List<Booking> findByUsername(String username);
+    List<Booking> findByGeocode(String geocode);
     List<Booking> findRange(String geocode,long st,long en);
 }

@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.micrometer.core.instrument.util.StringUtils;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -140,6 +143,10 @@ public class AuthenticationController {
 							 encoder.encode(signUpRequest.getPassword()));
 
 		List<String> strRoles = signUpRequest.getAuthorities();
+        String gcode = signUpRequest.getGeocode();
+        if(StringUtils.isEmpty(gcode) || gcode!=null) {
+            user.setGeocode(gcode);
+        }
 		List<Authority> roles =new ArrayList<Authority>();
         System.out.println(strRoles);
 		if (strRoles == null) {
@@ -151,6 +158,11 @@ public class AuthenticationController {
                     Authority adminAuthority = authorityRepository.findByName(UserRoleName.ROLE_ADMIN);
                     System.out.println(adminAuthority);
 					roles.add(adminAuthority);
+                }
+
+                else if (role.equals("emp")) {
+                    Authority userAuthority = authorityRepository.findByName(UserRoleName.ROLE_EMP);
+					roles.add(userAuthority);
                 }
 			
 				else{

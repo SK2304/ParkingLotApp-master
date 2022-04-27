@@ -81,6 +81,14 @@ export default function ButtonAppBar() {
                   <ListItemText primary="Add Parking Lots" />
                </ListItemLink>) }
 
+               {showAdminBoard && (<ListItemLink href='/registerEmp'>
+                  <ListItemText primary="Register Employee" />
+               </ListItemLink>) }
+
+               {showAdminBoard && (<ListItemLink href='/modify-lot/_add'>
+                  <ListItemText primary="Modify Parking Lot" />
+               </ListItemLink>) }
+
                <ListItemLink href="/bookedslots" >
                 <ListItemText primary="Booked slots" />
               </ListItemLink>

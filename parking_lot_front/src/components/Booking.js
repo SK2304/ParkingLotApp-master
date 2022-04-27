@@ -30,12 +30,18 @@ const Booking =( props )=>{
 	const [selectedStartDate, setSelectedStartDate] = React.useState(new Date());
 	const [message, setMessage] = useState("");
 	const [success, setSuccess] = useState("");
+	const [vehicleno, setVehicleno] = useState("");
 	
 	  const handleEndDateChange = (date) => {
 	    setSelectedEndDate(date);
 	  };
 	  const handleStartDateChange = (date) => {
 	    setSelectedStartDate(date);
+	  };
+
+	  const onChangeVehicleno = (e) => {
+		const email = e.target.value;  
+	    setVehicleno(email);
 	  };
 	const onSubmit= ()=>{
 		axios.post()
@@ -49,6 +55,7 @@ const Booking =( props )=>{
 			starttime:parseInt((selectedStartDate.getTime() / 1000).toFixed(0)),
 			endtime:parseInt((selectedEndDate.getTime() / 1000).toFixed(0)),
 			geocode: props.history.location.state.geocode,
+			vehicleno: vehicleno,
 			username: currentUser.username,
 			type:"test"
 		}
@@ -112,6 +119,17 @@ const Booking =( props )=>{
 			 {message && (
 			   <Alert severity="error">{message}</Alert>
 			 )}
+
+					<Grid className={classes.form}>
+                          
+						  <TextField
+							label='Vehicle No'
+							value={vehicleno}
+							onChange={onChangeVehicleno}
+							variant='outlined'
+							required
+						  />
+					  </Grid>
 			 	<Card className={classes.card} xs={8}>
 			 		<Typography variant="h6" gutterBottom>
 				        Select Start Date and Time

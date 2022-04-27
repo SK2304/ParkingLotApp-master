@@ -62,7 +62,7 @@ const vpassword = (value) => {
   }
 };
 
-const Register = (props) => {
+const RegisterEmp = (props) => {
   const classes = useStyles();
   const form = useRef();
   const checkBtn = useRef();
@@ -70,9 +70,10 @@ const Register = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [geocode, setGeocode] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
-  const geocode =null;
+
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -97,6 +98,11 @@ const Register = (props) => {
   const onChangePassword = (e) => {
     const password = e.target.value;
    setPassword(password);
+  };
+
+  const onChangeGeocode = (e) => {
+    const geocode = e.target.value;
+   setGeocode(geocode);
   };
 
   const handleRegister = (e) => {
@@ -175,6 +181,17 @@ const Register = (props) => {
                   />
               </Grid>
 
+              <Grid className={classes.form}>
+                          
+                  <TextField
+                    label='GeoCode'
+                    value={geocode}
+                    onChange={onChangeGeocode}
+                    variant='outlined'
+                    required
+                  />
+              </Grid>
+
               <Grid container justify="center" style={{ marginTop: '10px' }}>
                             <Button variant="outlined" type="submit" color="primary" style={{ textTransform: "none" }}>
                             Sign Up
@@ -194,4 +211,4 @@ const Register = (props) => {
   );
 };
 
-export default Register;
+export default RegisterEmp;

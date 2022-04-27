@@ -36,11 +36,13 @@ import com.razorpay.Utils;
 import com.satwatovirtusa.parking_lot.exception.BookingExists;
 import com.satwatovirtusa.parking_lot.exception.ResourceNotFoundException;
 import com.satwatovirtusa.parking_lot.model.Booking;
+import com.satwatovirtusa.parking_lot.model.Users;
 import com.satwatovirtusa.parking_lot.service.BookingService;
 import com.satwatovirtusa.parking_lot.service.impl.BookingServiceImpl;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import com.satwatovirtusa.parking_lot.repository.BookingRepository;
 import com.satwatovirtusa.parking_lot.repository.ParkingLotRepository;
+import com.satwatovirtusa.parking_lot.repository.UserRepository;
 import com.satwatovirtusa.parking_lot.security.auth.MessageResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -59,6 +61,9 @@ public class BookingController {
     
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private ParkingLotRepository parkingLotRepository;
@@ -143,8 +148,12 @@ public class BookingController {
             if(roles.equalsIgnoreCase("ROLE_USER")) {
                 Booking = bookingRepository.findByUsername(username);
             }
-            if(roles.equalsIgnoreCase("ROLE_ADMIN")) {
+            else if(roles.equalsIgnoreCase("ROLE_ADMIN")) {
                 Booking = bookingRepository.findAll();
+            }
+            else {
+                Users user = userRepository.findByUsername(username);
+                Booking = bookingRepository.findByGeocode(user.getGeocode());
             }
         if(Booking.isEmpty()) {
             return null ;
@@ -166,20 +175,14 @@ public class BookingController {
             if ((BookingDetails.getType()).equals("test"))
             {
                 List<Booking> bk=bookingRepository.findRange(BookingDetails.getGeocode(),BookingDetails.getStarttime(),BookingDetails.getEndtime());
-            // System.out.println(BookingDetails.getStarttime().getTime()+" "+BookingDetails.getEndtime().getTime() );
-            // String pattern = "yyyy-MM-dd'T'HH:mm:ss.";
-            // DateFormat df = new SimpleDateFormat(pattern);
-            // String str = df.format(BookingDetails.getStarttime());
-            // String en =df.format(BookingDetails.getEndtime());
-            // System.out.println("sss "+str+" "+en );
         
                 long sl= parkingLotRepository.findByGeocode(BookingDetails.getGeocode()).getSlots();
+                
                 if (bk.size()==0){
                    
                     HashMap<String, String> entity= new HashMap<>();
                     entity= createPaymentEntity(BookingDetails.getStarttime(),BookingDetails.getEndtime());
-                    //entities.add(entity);
-                    //entities.forEach(System.out::println);
+
                     return new ResponseEntity <HashMap<String, String>>(entity, HttpStatus.OK);
                 }
                 else{

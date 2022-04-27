@@ -2,13 +2,20 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8102/parking_lot/auth/";
 
-const register = (username, email, password) => {
-  var authorities=['user']
+const register = (username, email, password, showAdminBoard, geocode) => {
+  if(showAdminBoard) {
+    var authorities=['emp']
+  }
+  else {
+    var authorities=['user']
+  }
+  console.log(showAdminBoard);
   return axios.post(API_URL + "signup", {
     username,
     email,
     password,
     authorities,
+    geocode,
   });
 };
 

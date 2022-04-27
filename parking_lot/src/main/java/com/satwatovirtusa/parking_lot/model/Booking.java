@@ -44,4 +44,7 @@ public class Booking {
 
     @NotEmpty
     private String signature;
+
+    @NotEmpty
+    private String vehicleno;
 }

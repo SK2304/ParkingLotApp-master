@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 });
 var libraries = ["places", "geometry"]
 
-const MapView = (props) => {
+const ModifyLots = (props) => {
 
 	const [lots, setLots] = useState([])
 	const [selectedLot, setSelectedLot] = useState(null)
@@ -43,7 +43,7 @@ const MapView = (props) => {
 	const sendToBooking = () => {
 		props.history.push(
 			{
-				pathname: '/book_lot',
+				pathname: '/change_lot',
 				state: selectedLot
 			}
 		)
@@ -110,7 +110,7 @@ const MapView = (props) => {
 							<p>Address : {selectedLot.address}</p>
 							<p>Created Slots : {selectedLot.slots}</p>
 							<Button variant="outlined" onClick={sendToBooking} color="primary" style={{ textTransform: "none" }}>
-								Book Slot
+								Modify
 							</Button>
 						</div>
 					</InfoWindow>
@@ -130,4 +130,4 @@ const MapView = (props) => {
 }
 
 
-export default React.memo(MapView)
+export default React.memo(ModifyLots)

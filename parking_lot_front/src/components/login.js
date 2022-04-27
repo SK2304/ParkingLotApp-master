@@ -1,3 +1,4 @@
+import './login.css'
 import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
@@ -5,11 +6,6 @@ import { Paper, Grid, TextField, Button, Card, CircularProgress } from '@materia
 import Alert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthService from "../services/auth.service";
-
-
-export default()=> {
-  const image = (   <img src={require('./Image.jpg')} ></img> );
-}
 
 const required = (value) => {
   if (!value) {
@@ -23,18 +19,16 @@ const required = (value) => {
 const useStyles = makeStyles({
   card: {
     minWidth: 275,
-    margin: 20
+    margin: 20,
   },
   inCard:{
     margin:30,
+    flexGrow: 1,
   },
   form:{
     padding:10,
+    flexGrow: 1,
   }
-  // avatar:{
-  //   backgroundImage: URL('./Image.jpg'),
-  //   // backgroundPosition: center
-  // }
  
 });
 const Login = (props) => {
@@ -88,12 +82,10 @@ const Login = (props) => {
     }
   };
   
-
-
   return (
     <React.Fragment>
       
-      <Grid  container justify="center" alignItems="center">
+      <Grid  className="loginbody" container justify="center" alignItems="center">
         <Card className={classes.card}>
             
             

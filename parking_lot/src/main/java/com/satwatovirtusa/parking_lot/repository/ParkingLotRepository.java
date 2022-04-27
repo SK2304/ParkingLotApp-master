@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.satwatovirtusa.parking_lot.model.ParkingLot;
 
 @Repository
-public interface ParkingLotRepository extends MongoRepository<ParkingLot, Long>{
+public interface ParkingLotRepository extends MongoRepository<ParkingLot, String>{
     ParkingLot findByGeocode(String geocode);
 }

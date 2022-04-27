@@ -20,6 +20,8 @@ public class SignupRequest {
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
+
+    private String geocode;
   
     public String getUsername() {
         return username;
@@ -51,5 +53,13 @@ public class SignupRequest {
     
     public void setAuthorities(List<String>  authorities) {
       this.authorities= authorities;
+    }
+
+    public String getGeocode() {
+        return geocode;
+    }
+ 
+    public void setGeocode(String geocode) {
+        this.geocode = geocode;
     }
 }

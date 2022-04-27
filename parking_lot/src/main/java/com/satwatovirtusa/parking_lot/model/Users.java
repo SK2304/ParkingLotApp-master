@@ -62,6 +62,8 @@ public class Users implements UserDetails{
     @NotEmpty
     private Timestamp lastPasswordResetDate;
 
+    private String geocode;
+
     @DBRef
     private List<Authority> authorities;
 
@@ -120,6 +122,10 @@ public class Users implements UserDetails{
 
     public String getPassword() {
         return password;
+    }
+
+    public String getGeocode() {
+        return geocode;
     }
 
     }
